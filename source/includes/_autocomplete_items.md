@@ -236,6 +236,13 @@ my $response = $constructorio->add_batch(
 );
 ```
 
+```java
+boolean success = constructorio.addBatch("Search Suggestions", "power drill", "hammer");
+// "Search Suggestions" is an autocomplete section name
+// power drill is an item name
+// hammer is an item name
+```
+
 ```csharp
 bool success = constructorio.AddBatch(
   dictionaryOfItems,
@@ -319,6 +326,13 @@ my $response = $constructorio->add_or_update_batch(
 );
 ```
 
+```java
+boolean success = constructorio.addOrUpdateBatch("Search Suggestions", "power drill", "hammer");
+// power drill is an item name
+// hammer is an item name
+// Search Suggestions is an autocomplete section name
+```
+
 ```csharp
 bool success = constructorio.AddOrUpdateBatch(
   dictionaryOfItems,
@@ -332,7 +346,7 @@ bool success = constructorio.AddOrUpdateBatch(
 
 A batch add or update allows you to add a group of items to your autocomplete without first checking to make sure no item in the batch already exists.
 
- Any items that don't already exist are created, and any items that already exist are updated. This is also known as an `UPSERT` option.
+ Any items that don't already exist are created, and any items that already exist are updated. This is also known as an `UPSERT` operation.
 
 To add or update a batch of items to your autocomplete index, use the `PUT /batch_items` call, with `?force=1`. Options are the same as for the standard `Batch Add Items` call: `item_name` and `autocomplete_section` are required and all other parameters are optional.
 
