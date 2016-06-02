@@ -51,9 +51,8 @@ boolean success = constructorio.trackSearch("xyz", 302);
 ```
 
 ```csharp
-bool success = constructorio.TrackSearch("xyz", 302);
+bool success = ConstructorIOAPI.TrackSearch("xyz");
 // "xyz" is the term that was searched
-// 302 is the number of results
 ```
 
 The `search` resource should be called whenever a search is performed on your site, together with the search `term` and number of results (`num_results`).
@@ -123,9 +122,8 @@ boolean success = constructorio.trackClickThrough("xyz", "alphabet soup", "Searc
 ```
 
 ```csharp
-bool success = constructorio.TrackClickThrough("xyz", "alphabet soup", "Search Suggestions");
+bool success = ConstructorIOAPI.TrackClickThrough("xyz", "Search Suggestions");
 // xyz is the term
-// alphabet soup is the item
 // Search Suggestions is the autocomplete section
 ```
 
@@ -198,7 +196,7 @@ boolean success = constructorio.trackConversion("xyz", "Search Suggestions");
 ```
 
 ```csharp
-bool success = constructorio.TrackConversion("xyz", "Search Suggestions");
+bool success = ConstructorIOAPI.TrackConversion("xyz", "Search Suggestions");
 // xyz is the term
 // Search Suggestions is the autocomplete section
 ```
