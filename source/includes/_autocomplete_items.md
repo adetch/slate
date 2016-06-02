@@ -56,14 +56,17 @@ boolean success = constructorio.add("power drill", "Search Suggestions");
 ```
 
 ```csharp
-bool success = constructorio.Add(
-  "power drill",
-  "Search Suggestions",
-  dictionaryOfOtherParameters
+ListItem item = new ListItem(
+  Name: "Power drill",
+  Description: "Like a drill, with power.",
+  URL: "http://constructor.io/power-drill",
+  ImageURL: "http://constructor.io/power-drill.jpg",
+  AutocompleteSection: "Products"
 );
-// "power drill" is an item name
-// "Search Suggestions" is an autocomplete section name
-// dictionaryOfOtherParameters is an optional Dictionary<string, object> containing any other parameters
+
+bool success = ConstructorIOAPI.Add(item);
+
+// "item" is a ListItem containing key / value pairs as specified in parameters below.
 ```
 
 > The above command returns a 204 Success response on success.
@@ -141,14 +144,17 @@ boolean success = constructorio.addOrUpdate("power drill", "Search Suggestions")
 ```
 
 ```csharp
-bool success = constructorio.AddOrUpdate(
-  "power drill",
-  "Search Suggestions",
-  dictionaryOfOtherParameters
+ListItem item = new ListItem(
+  Name: "Power drill",
+  Description: "Like a drill, with power.",
+  URL: "http://constructor.io/power-drill",
+  ImageURL: "http://constructor.io/power-drill.jpg",
+  AutocompleteSection: "Products"
 );
-// "power drill" is an item name
-// "Search Suggestions" is an autocomplete section name
-// dictionaryOfOtherParameters is an optional Dictionary<string, object> containing any other parameters
+
+bool success = ConstructorIOAPI.AddOrUpdate(item);
+
+// "item" is a ListItem containing key / value pairs as specified in parameters below. If an item with the name "Power drill" already exists, its Description, Url and ImageUrl will be updated as indicated. Otherwise a new item will be created with these values.
 ```
 
 
@@ -215,6 +221,10 @@ response = constructorio.add_batch(
 );
 ```
 
+```python
+# This method is not currently supported in our python client.
+```
+
 ```php
 <?php
 $response = $constructor->addBatch(
@@ -244,17 +254,30 @@ boolean success = constructorio.addBatch("Search Suggestions", "power drill", "h
 ```
 
 ```csharp
-bool success = constructorio.AddBatch(
-  dictionaryOfItems,
-  "Search Suggestions"
-);
-// dictionaryOfItems is a Dictionary<string, object> containing a key of "items" with a value of a list containing Dictionary<string, object> objects for each item
-// "Search Suggestions" is an autocomplete section name
+List<ListItem> itemList = new List<ListItem>();
+
+itemList.Add(new ListItem(
+  Name: "Power drill",
+  Description: "Like a drill, with power.",
+  URL: "http://constructor.io/power-drill",
+  ImageURL: "http://constructor.io/power-drill.jpg"
+));
+
+itemList.Add(new ListItem(
+  Name: "Hammer",
+  Description: "When everything looks like a nail.",
+  URL: "http://constructor.io/hammer"
+));
+
+bool success = ConstructorIOAPI.AddBatch(itemList, "Products");
+
+// itemList is a List<ListItem> composed of key / value pairs as specified in parameters below.
+// "Products" is the  autocomplete section to which you'd like to add the items contained in itemList
 ```
 
 > The above command(s) return a 204 Success response on success.
 
-To add multiple items to your autocomplete index as a batch, use the `POST /batch_items` call. The `items` parameter is required and is an array of item hashes with the same attributes as defined in the `Add an Item` resource.  Because your autocomplete can have multiple sections, like categories, search suggestions, and direct links to products, you must specify which section you are adding an item to. You can do this with the `autocomplete_section` parameter.
+To add multiple items to your autocomplete index as a batch, use the `POST /batch_items` call. The `items` parameter is required and is a list of items with the same attributes as defined in the [Add an Item](#add-an-item) resource.  Because your autocomplete can have multiple sections, like categories, search suggestions, and direct links to products, you must specify which section you are adding an item to. You can do this with the `autocomplete_section` parameter.
 
 ### HTTP Request
 
@@ -264,7 +287,7 @@ To add multiple items to your autocomplete index as a batch, use the `POST /batc
 
 Parameter | Required? | Description
 --------- | ------- | -----------
-items | Yes | An array of item hashes with the same attributes as defined in the `Add an Item` resource
+items | Yes | A list of items with the same attributes as defined in the [Add an Item](#add-an-item) resource
 autocomplete_section | Yes | Your autocomplete suggestions can have multiple sections like "Products" and "Search Suggestions".  This indicates which section this item is for.  See [your dashboard](/dashboard) for the section names to use.
 
 ## Batch Add or Update Items
@@ -334,19 +357,32 @@ boolean success = constructorio.addOrUpdateBatch("Search Suggestions", "power dr
 ```
 
 ```csharp
-bool success = constructorio.AddOrUpdateBatch(
-  dictionaryOfItems,
-  "Search Suggestions"
-);
-// dictionaryOfItems is a Dictionary<string, object> containing a key of "items" with a value of a list containing Dictionary<string, object> objects for each item
-// "Search Suggestions" is an autocomplete section name
+List<ListItem> itemList = new List<ListItem>();
+
+itemList.Add(new ListItem(
+  Name: "Power drill",
+  Description: "Like a drill, with power.",
+  URL: "http://constructor.io/power-drill",
+  ImageURL: "http://constructor.io/power-drill.jpg"
+));
+
+itemList.Add(new ListItem(
+  Name: "Hammer",
+  Description: "When everything looks like a nail.",
+  URL: "http://constructor.io/hammer"
+));
+
+bool success = ConstructorIOAPI.AddOrUpdateBatch(itemList, "Products");
+
+// itemList is a List<ListItem> composed of key / value pairs as specified in parameters below. If "Power drill" or "Hammer" already exist, their metadata will be updated as above. Otherwise new items will be created with these values.
+// "Products" is the  autocomplete section to which you'd like to add the items contained in itemList
 ```
 
 > The above command(s) return a 204 Success response on success.
 
 A batch add or update allows you to add a group of items to your autocomplete without first checking to make sure no item in the batch already exists.
 
- Any items that don't already exist are created, and any items that already exist are updated. This is also known as an `UPSERT` operation.
+Any items that don't already exist are created, and any items that already exist are updated. This is also known as an `UPSERT` operation.
 
 To add or update a batch of items to your autocomplete index, use the `PUT /batch_items` call, with `?force=1`. Options are the same as for the standard `Batch Add Items` call: `item_name` and `autocomplete_section` are required and all other parameters are optional.
 
@@ -360,8 +396,8 @@ We determine whether items already exist based on the `item_name` and `autocompl
 
 Parameter | Required? | Description
 --------- | ------- | -----------
-items | Yes | An array of item hashes with the same attributes as defined in the `Add an Item` resource
 autocomplete_section | Yes | Your autocomplete suggestions can have multiple sections like "Products" and "Search Suggestions".  This indicates which section this item is for.  See [your dashboard](/dashboard) for the section names to use.
+items | Yes | A list of items with the same attributes as defined in the [Add an Item](#add-an-item) resource
 
 ## Remove an Item
 
@@ -413,12 +449,14 @@ boolean success = constructorio.remove("power drill", "Search Suggestions");
 ```
 
 ```csharp
-bool success = constructorio.Remove(
-  "power drill",
-  "Search Suggestions"
+ListItem item = new ListItem(
+  Name: "Power drill",
+  AutocompleteSection: "Products"
 );
-// "power drill" is an item name
-// "Search Suggestions" is an autocomplete section name
+
+bool success = ConstructorIOAPI.Remove(item);
+
+// "item" is a ListItem with the Name or ID for the item you'd like to remove
 ```
 
 > The above command returns a 204 Success response on success.
@@ -436,6 +474,67 @@ Parameter | Required? | Description
 item_name | Yes | The name of the item, as it will appear in the autocomplete suggestions
 autocomplete_section | Yes | Your autocomplete suggestions can have multiple sections like "Products" and "Search Suggestions".  This indicates which section this item is for.  See [your dashboard](/dashboard) for the section names to use.
 id | No | An arbitrary ID you optionally specified when adding the item.  If passed in, you don't need to pass in item_name.
+
+## Batch Remove Items
+
+```shell
+curl -X DELETE -H "Content-Type: application/json" -d {"items": [ {"item_name": "power drill"}, {"item_name": "hammer"} ],
+    "autocomplete_section":"Search Suggestions"}' \
+  -u "[your token]:" "https://ac.cnstrc.com/v1/batch_items?autocomplete_key=[your autocomplete key]"
+```
+
+```javascript
+// This method is not currently supported in our javascript client.
+```
+
+```ruby
+# This method is not currently supported in our ruby client.
+```
+
+```python
+# This method is not currently supported in our python client.
+```
+
+```php
+<?php
+// This method is not currently supported in our php client.
+```
+
+```perl
+# This method is not currently supported in our perl client.
+```
+
+```java
+// This method is not currently supported in our java client.
+```
+
+```csharp
+List<ListItem> itemList = new List<ListItem>();
+
+itemList.Add(new ListItem(Name: "Power drill"));
+itemList.Add(new ListItem(ID: "245"));
+
+bool success = ConstructorIOAPI.RemoveBatch(itemList, "Products");
+
+// itemList is a List<ListItem> with the IDs and/or Names of the items you'd like to remove.
+// "Products" is an autocomplete section name.
+```
+> The above command returns a 204 Success response on success.
+
+To remove multiple items from your autocomplete index as a batch, use the `DELETE /batch_items` call. Note: this will remove all meta-information such as keywords we currently store on the items.
+
+The `items` parameter is required and is a list of items with the same attributes as defined in the [Remove an Item](#remove-an-item) resource. If your autocomplete has multiple sections (i.e. products, categories, and search suggestions), you must specify the name of the autocomplete section from which you're removing the items.
+
+### HTTP Request
+
+`DELETE https://ac.cnstrc.com/v1/batch_items?autocomplete_key=[your autocomplete key]`
+
+### JSON Parameters
+
+Parameter | Required? | Description
+--------- | ----------- | ----------
+items | Yes | A list of items with the same attributes as defined in the [Remove an Item](#remove-an-item) resource.
+autocomplete_section | Yes | Your autocomplete suggestions can have multiple sections like "Products" and "Search Suggestions".  This indicates which section this item is for.  See [your dashboard](/dashboard) for the section names to use.
 
 ## Modify an Item
 
@@ -507,16 +606,19 @@ boolean success = constructorio.modify("power drill", "super power drill", "Sear
 ```
 
 ```csharp
-bool success = constructorio.Modify(
-  "power drill",
-  "super power drill",
-  "Search Suggestions",
-  dictionaryOfOtherParameters
+ListItem item = new ListItem(
+  Name: "Drill",
+  URL: "http://constructor.io/drill",
+  AutocompleteSection: "Products"
 );
-// "power drill" is an item name
-// "super power drill" is the new item name
-// "Search Suggestions" is an autocomplete section name
-// dictionaryOfOtherParameters is an optional Dictionary<string, object> containing any other parameters
+
+item.Name = "Power drill";
+item.Description = "Like a drill, with power."
+
+bool success = ConstructorIOAPI.Modify(item);
+// "Drill" is the original item name as you previously saved it in our system
+// "Power drill" is the new item name
+// "Description" is a new description to add for the item
 ```
 
 > The above command returns a 204 Success response on success.
