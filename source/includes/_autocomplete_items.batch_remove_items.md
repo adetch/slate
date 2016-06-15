@@ -11,7 +11,18 @@ curl -X DELETE -H "Content-Type: application/json" -d {"items": [ {"item_name": 
 ```
 
 ```ruby
-# This method is not currently supported in our ruby client.
+response = constructorio.remove_batch(
+  {
+    items: [
+      { item_name: "power drill" },
+      { item_name: "hammer" },
+      { id: "3" }
+    ],
+    autocomplete_section: "Products"
+  }
+);
+
+# Here we've removed a batch of items by item_name and id.
 ```
 
 ```python
