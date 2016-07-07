@@ -24,7 +24,9 @@ under the License.
 ////////////////////////////////////////////////////////////////////////////////
 // GENERAL STUFF
 ////////////////////////////////////////////////////////////////////////////////
-
+* {
+  box-sizing: border-box;
+}
 html, body {
   color: $main-text;
   padding: 0;
@@ -303,7 +305,7 @@ $button-timing: .2s;
   border: none;
   padding: 20px 0px 8px 0px;
   z-index: 10000;
-  background: url("/docs/images/nav-bg.jpg") no-repeat center;
+  background: url('/docs/images/nav-bg.jpg') no-repeat center;
   background-size: cover;
   @include transition-block($navbar-timing);
   position: fixed;
@@ -330,9 +332,10 @@ $button-timing: .2s;
 .navbar-default {
   .navbar-nav {
     float: right;
+    margin: 0;
 
     li.nav-divider {
-      background: asset-url('homepage/circle-af-white.png');
+      background: url('/docs/images/circle-af-white.png');
       background-repeat: no-repeat;
       content: "";
       margin: 16px 4px 0px 4px;
@@ -345,7 +348,8 @@ $button-timing: .2s;
       margin: 4px 12px;
       list-style: none;
       float: left;
-
+      line-height: 33px;
+      position: relative;
 
       > a {
         color: #fff;
