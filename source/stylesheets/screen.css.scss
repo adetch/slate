@@ -303,7 +303,7 @@ $button-timing: .2s;
   border: none;
   padding: 20px 0px 8px 0px;
   z-index: 10000;
-  background: url("https://constructor.io//assets/homepage/nav-bg-9b16fc9d6964f3c27ebc62f3a280bc28.jpg") no-repeat center;
+  background: url("/docs/images/nav-bg.jpg") no-repeat center;
   background-size: cover;
   @include transition-block($navbar-timing);
   position: fixed;
