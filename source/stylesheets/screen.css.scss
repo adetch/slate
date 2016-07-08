@@ -470,9 +470,9 @@ html, body {
     max-width: 100%;
   }
 
-  code {
+  code.prettyprint {
     background-color: rgba(0,0,0,0.03);
-    color: $code-in-content; // @todo fix the red style getting applied to certain code blocks on right.
+    color: $code-in-content;
     padding: 3px;
     border-radius: 3px;
     @extend %break-words;
