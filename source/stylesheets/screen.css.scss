@@ -12,7 +12,7 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may
 not use this file except in compliance with the License. You may obtain
 a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
@@ -24,7 +24,9 @@ under the License.
 ////////////////////////////////////////////////////////////////////////////////
 // GENERAL STUFF
 ////////////////////////////////////////////////////////////////////////////////
-
+* {
+  box-sizing: border-box;
+}
 html, body {
   color: $main-text;
   padding: 0;
@@ -35,6 +37,10 @@ html, body {
   background-color: $main-bg;
   height: 100%;
   -webkit-text-size-adjust: none; /* Never autoresize text */
+}
+
+body {
+  margin-top:80px;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,11 +56,11 @@ html, body {
 
 @mixin embossed-bg {
   background:
-    linear-gradient(to bottom, rgba(#000, 0.2), rgba(#000, 0) 8px),
-    linear-gradient(to top, rgba(#000, 0.2), rgba(#000, 0) 8px),
-    linear-gradient(to bottom, rgba($nav-embossed-border-top, 1), rgba($nav-embossed-border-top, 0) 1.5px),
-    linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px),
-    $nav-subitem-bg;
+  linear-gradient(to bottom, rgba(#000, 0.2), rgba(#000, 0) 8px),
+  linear-gradient(to top, rgba(#000, 0.2), rgba(#000, 0) 8px),
+  linear-gradient(to bottom, rgba($nav-embossed-border-top, 1), rgba($nav-embossed-border-top, 0) 1.5px),
+  linear-gradient(to top, rgba($nav-embossed-border-bottom, 1), rgba($nav-embossed-border-bottom, 0) 1.5px),
+  $nav-subitem-bg;
 }
 
 .toc-logo {
@@ -69,7 +75,7 @@ html, body {
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
-  top: 0;
+  top: 80px;
   left: 0;
   bottom: 0;
   width: $nav-width;
@@ -230,19 +236,21 @@ html, body {
 #nav-button {
   span {
     display: block;
-    $side-pad: $main-padding / 2 - 8px;
-    padding: $side-pad $side-pad $side-pad;
-    background-color: rgba($main-bg, 0.7);
+    padding: 6px 6px 6px;
+    background-color: rgba(246,248,249,0.7);
+    -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
+    -webkit-transform: rotate(-90deg) translate(-100%, 0);
     transform: rotate(-90deg) translate(-100%, 0);
     border-radius: 0 0 0 5px;
+    z-index: 100000;
   }
   padding: 0 1.5em 5em 0; // increase touch size area
   display: none;
   position: fixed;
-  top: 0;
+  top: 80px;
   left: 0;
-  z-index: 100;
+  z-index: 100000;
   color: #000;
   text-decoration: none;
   font-weight: bold;
@@ -252,14 +260,269 @@ html, body {
     height: 16px;
     vertical-align: bottom;
   }
-
   transition: left 0.3s ease-in-out;
-
   &:hover { opacity: 1; }
   &.open {left: $nav-width}
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Navbar
+////////////////////////////////////////////////////////////////////////////////
 
+
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,500,600,700);
+$highlight-color: #28b828;
+$hover-color: #248a24;
+$dark-text-color: #989ea2;
+$darker-text-color: #272e36;
+$lighter-text-color: #b9bfc3;
+$navbar-toggle-color: #ddd;
+$gray-background: #f6f8f9;
+$line-stroke: #dbdfe1;
+$form-stroke: #e4e8ea;
+$form-text-inactive: #b3bcc7;
+$subpage-text-color: #717a84;
+$navbar-timing: .4s;
+$button-timing: .2s;
+@mixin transition-block($seconds) {
+  transition: all $seconds ease-in-out;
+  -webkit-transition: all $seconds ease-in-out;
+  -moz-transition: -moz-transform $seconds ease-in-out;
+  -ms-transition: all $seconds ease-in-out;
+}
+
+@mixin box-shadow($top, $left, $blur, $color) {
+  -webkit-box-shadow: $top $left $blur $color;
+  -moz-box-shadow: $top $left $blur $color;
+  box-shadow: $top $left $blur $color;
+}
+
+
+
+
+.navbar {
+  background-color: transparent;
+  border: none;
+  padding: 20px 0px 8px 0px;
+  z-index: 10000;
+  background: url('/docs/images/nav-bg.jpg') no-repeat center;
+  background-size: cover;
+  @include transition-block($navbar-timing);
+  position: fixed;
+  width: 100%;
+  top: 0px;
+
+
+  .navbar-header {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .navbar-brand {
+    padding: 0 15px 15px 15px;
+    float: left;
+    &.initial {
+      display:block;
+    }
+    &.scroll {
+      display:none;
+    }
+  }
+}
+
+.navbar-default {
+  .navbar-nav {
+    float: right;
+    margin: 0;
+
+    li.nav-divider {
+      background: url('/docs/images/circle-af-white.png');
+      background-repeat: no-repeat;
+      content: "";
+      margin: 16px 4px 0px 4px;
+      width: 8px;
+      height: 8px;
+      opacity: 0.4;
+    }
+
+    > li {
+      margin: 4px 12px;
+      list-style: none;
+      float: left;
+      line-height: 33px;
+      position: relative;
+
+      > a {
+        color: #fff;
+        font-weight: 500;
+        font-size: 13px;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 1px;
+        line-height: 15px;
+        margin-left: 7px;
+        margin-right: 7px;
+        padding: 10px 0px 8px 0px;
+        text-decoration: none;
+
+        &:focus {
+          color: #fff;
+        }
+
+        &:hover {
+          border-bottom: 2px solid $highlight-color;
+          color: #fff;
+        }
+
+        &.action {
+          color: #fff;
+          margin-top: -2px;
+          margin-left: 0px;
+          padding: 6px 10px;
+          border: 2px solid #fff;
+          border-radius: 30px;
+          &:hover {
+            border-color: $highlight-color;
+            background-color: $highlight-color;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  .navbar-brand {
+    padding: 5px 15px 15px 15px;
+  }
+
+  .navbar-toggle {
+    border: 2px solid $navbar-toggle-color;
+    margin-top: 4px;
+    margin-right: 0;
+
+    .icon-bar {
+      background-color: $navbar-toggle-color;
+
+      }
+
+    &:focus, &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+.navbar {
+  text-transform: uppercase;
+}
+
+
+@media (max-width: 994px) {
+
+  .navbar-default .navbar-nav > li {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar-default .navbar-nav > li {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .navbar-default {
+
+    .navbar-nav {
+      margin-left: -8px;
+      float: none;
+      display: none;
+
+      li a, a:focus {
+        color: $dark-text-color;
+      }
+      li > a:hover, li > a.action:hover {
+        border: none;
+        color: $highlight-color;
+        background-color: transparent;
+      }
+      li > a.action {
+        margin-top: -2px;
+        color: $dark-text-color;
+        margin-left: 7px;
+        padding-left: 0px;
+        padding-right: 0px;
+        border: none;
+      }
+      li > a:hover {
+        border: none;
+        color: $highlight-color;
+        background-color: transparent;
+      }
+      li.nav-divider {
+        background: none;
+        border-bottom: 1px solid $form-stroke;
+        margin: 5px auto;
+        width: 95%;
+        height: auto;
+        content: "";
+        opacity: 1;
+        display: block;
+        text-align: center;
+      }
+    }
+
+    .navbar-toggle {
+      border-color: transparent;
+      .icon-bar {
+        background-color: $lighter-text-color;
+        display: block;
+        width: 22px;
+        height: 2px;
+        border-radius: 1px;
+      }
+    }
+
+    .navbar-brand.initial {
+      display: block;
+      float: none;
+      img {
+        display: block;
+        margin: 0 auto;
+
+      }
+    }
+    .navbar-brand.scroll {
+      display:block;
+    }
+  }
+
+  .navbar-default .navbar-nav > li {
+    margin: 0 12px;
+
+    a {
+      font-size: 13px;
+    }
+
+    > a {
+      &.active {
+        color: #fff;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
 ////////////////////////////////////////////////////////////////////////////////
 // PAGE LAYOUT AND CODE SAMPLE BACKGROUND
 ////////////////////////////////////////////////////////////////////////////////
@@ -649,4 +912,3 @@ html, body {
     margin-top: $main-padding;
   }
 }
-
