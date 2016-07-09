@@ -20,6 +20,12 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
 */
+////////////////////////////////////////////////////////////////////////////////
+// IMPORTS
+////////////////////////////////////////////////////////////////////////////////
+
+@import url(https://fonts.googleapis.com/css?family=Poppins:500);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
 
 ////////////////////////////////////////////////////////////////////////////////
 // GENERAL STUFF
@@ -31,8 +37,6 @@ html, body {
   color: $main-text;
   padding: 0;
   margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   @extend %default-font;
   background-color: $main-bg;
   height: 100%;
@@ -270,7 +274,6 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 
 
-@import url(https://fonts.googleapis.com/css?family=Poppins:400,500,600,700);
 $highlight-color: #28b828;
 $hover-color: #248a24;
 $dark-text-color: #989ea2;
