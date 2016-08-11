@@ -70,7 +70,7 @@ bool success = ConstructorIOAPI.AddOrUpdate(item);
 
 An add or update operation (also known as an `UPSERT`) updates an item in your autocomplete index if it already exists, or adds the item to your index if it does not yet exist. 
 
-To add or update an item in your autocomplete index, use the `POST /item` call, with `?force=1`. Options are the same as for the standard `Add an Item` call: `item_name` and `autocomplete_section` are required and all other parameters are optional.
+To add or update an item in your autocomplete index, use the `PUT /item` call, with `?force=1`. Options are the same as for the standard `Add an Item` call: `item_name` and `autocomplete_section` are required and all other parameters are optional.
 
 We determine whether an item already exists based on the optional `id` set for the item, or if not present, the `item_name` and `autocomplete_section`.
 
