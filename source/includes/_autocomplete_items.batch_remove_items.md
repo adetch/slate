@@ -26,7 +26,23 @@ response = constructorio.remove_batch(
 ```
 
 ```python
-# This method is not currently supported in our python client.
+items = [
+  {"item_name": "power drill"},
+  {"item_name": "hammer"}
+]
+response = constructor_instance.remove_batch(
+  items=items,
+  autocomplete_section="Search Suggestions"
+)
+
+toolBox = [
+  {"item_name": "power drill 1000"},
+  {"id": "132"}
+]
+response = constructor_instance.remove_batch(
+    items=toolBox,
+    autocomplete_section="Products"
+)
 ```
 
 ```php

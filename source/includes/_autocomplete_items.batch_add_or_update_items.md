@@ -36,6 +36,26 @@ response = constructorio.add_or_update_batch(
 );
 ```
 
+```python
+items = [
+  {"item_name": "power drill"},
+  {"item_name": "hammer"}
+]
+response = constructor_instance.add_or_update_batch(
+  items=items,
+  autocomplete_section="Search Suggestions"
+)
+
+toolBox = [
+  {"item_name": "power drill 1000", "url": "/products/power-drill-1000", "id": "42"},
+  {"item_name": "hammer of thor", "url": "/products/hammer-of-thor"}
+]
+response = constructor_instance.add_or_update_batch(
+    items=toolBox,
+    autocomplete_section="Products"
+)
+```
+
 ```php
 <?php
 $response = $constructor->addOrUpdateBatch(

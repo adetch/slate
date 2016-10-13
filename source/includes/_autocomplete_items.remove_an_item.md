@@ -23,7 +23,9 @@ response = constructorio.remove(
 ```
 
 ```python
-response = constructor_instance.remove(item_name="power drill", autocomplete_section="Search Suggestions")
+response = constructor_instance.remove(
+  item_name="power drill", 
+  autocomplete_section="Search Suggestions")
 ```
 
 ```php

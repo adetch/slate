@@ -19,12 +19,12 @@ includes:
   - installation
   - authentication
   - autocomplete_items.intro
-  - autocomplete_items.add_an_item
-  - autocomplete_items.add_or_update_an_item
   - autocomplete_items.batch_add_items
   - autocomplete_items.batch_add_or_update_items
-  - autocomplete_items.remove_an_item
   - autocomplete_items.batch_remove_items
+  - autocomplete_items.add_an_item
+  - autocomplete_items.add_or_update_an_item
+  - autocomplete_items.remove_an_item
   - autocomplete_items.modify_an_item
   - behavioral_data
   - responses
