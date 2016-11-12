@@ -84,7 +84,7 @@ Parameter | Required? | Description
 --------- | ------- | -----------
 item_name | Yes | The name of the item, as it will appear in the autocomplete suggestions
 autocomplete_section | Yes | Your autocomplete suggestions can have multiple sections like "Products" and "Search Suggestions".  This indicates which section this item is for.  See [your dashboard](/dashboard) for the section names to use.
-suggested_score | No | A number between 1-100 that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear)
+suggested_score | No | A number between 1 and 100 million that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear)
 keywords | No | An array of keywords for this item.  Keywords are useful if you want a product name to appear when a user enters a searchterm that isn't in the product name iteslf.
 url | No | A URL to directly send the user after selecting the item
 image_url | No | A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied)
