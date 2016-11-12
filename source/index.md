@@ -26,6 +26,7 @@ includes:
   - autocomplete_items.add_or_update_an_item
   - autocomplete_items.remove_an_item
   - autocomplete_items.modify_an_item
+  - autocomplete_queries
   - behavioral_data
   - responses
   - errors
