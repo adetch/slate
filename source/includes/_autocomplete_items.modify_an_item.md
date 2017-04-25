@@ -106,3 +106,4 @@ url | No | A URL to directly send the user after selecting the item
 image_url | No | A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied)
 description | No | A description for some item (only applicable when url is supplied)
 id | No | An arbitrary ID you optionally specified when adding the item.  If passed in, you don't need to pass in item_name.
+metadata | No | You can associate schema-less data with items by passing in an array of keys and values. To configure search and display of this data reach out to support@constructor.io.
