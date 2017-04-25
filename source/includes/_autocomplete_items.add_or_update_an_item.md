@@ -57,7 +57,12 @@ ListItem item = new ListItem(
   Description: "Like a drill, with power.",
   URL: "http://constructor.io/power-drill",
   ImageURL: "http://constructor.io/power-drill.jpg",
-  AutocompleteSection: "Products"
+  AutocompleteSection: "Products",
+  Metadata: new Dictionary<string, string>
+  {
+      { "Voltage", "12V" },
+      { "Color", "Green" }
+  });
 );
 
 bool success = ConstructorIOAPI.AddOrUpdate(item);
@@ -90,3 +95,4 @@ url | No | A URL to directly send the user after selecting the item
 image_url | No | A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied)
 description | No | A description for some item (only applicable when url is supplied)
 id | No | An arbitrary ID you would like associated with this item.  You can use this field to store your own IDs of the items to more easily access them in other API calls.
+metadata | No | You can associate schema-less data with items by passing in an array of keys and values. To configure search and display of this data reach out to support@constructor.io.

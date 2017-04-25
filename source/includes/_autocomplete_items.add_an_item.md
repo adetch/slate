@@ -57,7 +57,12 @@ ListItem item = new ListItem(
   Description: "Like a drill, with power.",
   URL: "http://constructor.io/power-drill",
   ImageURL: "http://constructor.io/power-drill.jpg",
-  AutocompleteSection: "Products"
+  AutocompleteSection: "Products",
+  Metadata: new Dictionary<string, string>
+  {
+      { "Voltage", "12V" },
+      { "Color", "Green" }
+  });
 );
 
 bool success = ConstructorIOAPI.Add(item);
@@ -67,7 +72,7 @@ bool success = ConstructorIOAPI.Add(item);
 
 > The above command returns a 204 Success response on success.
 
-To add an item to your autocomplete index, use the `POST /item` call. The `item_name` is required. You can also pass in an optional `suggested_score` between 1-100, which will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear). You can also optionally pass in the item's `keywords` to give us more meta information and help us better determine how and where to display the item when autocompleting. If you would like to add an item that points to a direct link, just pass in that link as a `url`. Finally, because your autocomplete can have multiple sections, like categories, search suggestions, and direct links to products, you must specify which section you are adding an item to. You can do this with the `autocomplete_section` parameter.
+To add an item to your autocomplete index, use the `POST /item` call. The `item_name` is required. You can also pass in an optional `suggested_score` between 1 and 100 million, which will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear). You can also optionally pass in the item's `keywords` to give us more meta information and help us better determine how and where to display the item when autocompleting. If you would like to add an item that points to a direct link, just pass in that link as a `url`. Finally, because your autocomplete can have multiple sections, like categories, search suggestions, and direct links to products, you must specify which section you are adding an item to. You can do this with the `autocomplete_section` parameter.
 
 ### HTTP Request
 
@@ -85,3 +90,4 @@ url | No | A URL to directly send the user after selecting the item
 image_url | No | A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied)
 description | No | A description for some item (only applicable when url is supplied)
 id | No | An arbitrary ID you would like associated with this item.  You can use this field to store your own IDs of the items to more easily access them in other API calls.
+metadata | No | You can associate schema-less data with items by passing in an array of keys and values. To configure search and display of this data reach out to support@constructor.io.
