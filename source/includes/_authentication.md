@@ -6,7 +6,8 @@
 
 ```shell
 # with curl, there's no need to authorize separately -- just pass your API token in with every call
-curl -X POST -H "Content-Type: application/json" -d '{"item_name":"xyz","keywords":["k1","k2"]}' \
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"item_name":"xyz","keywords":["k1","k2"]}' \
   -u "[your API token]:" https://ac.cnstrc.com/v1/item
 ```
 
@@ -40,7 +41,7 @@ constructor_instance = ConstructorIO(
 // if using Composer autoloading:
 // require_once "vendor/autoload.php";
 use ConstructorIO\ConstructorIO;
-$constructor = new ConstructorIO("[your API token]","[your autocomplete key]");
+$constructorio = new ConstructorIO("[your API token]","[your autocomplete key]");
 ```
 
 ```perl

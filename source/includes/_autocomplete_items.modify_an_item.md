@@ -1,17 +1,54 @@
 ## Modify an Item
 
 ```shell
-curl -X PUT -H "Content-Type: application/json" -d '{"item_name":"power drill","new_item_name":"super power drill","keywords":["concrete","power tools","drills","drywall"],"suggested_score":20,"url":"http://www.mysite.com/power_drill","autocomplete_section":"products_autocomplete"}' \
-  -u "[your token]:" "https://ac.cnstrc.com/v1/item?autocomplete_key=[your autocomplete key]"
+# search suggestion
+curl -X PUT -H "Content-Type: application/json" \
+  -d '{"item_name": "Golden Retriever", \
+       "new_item_name": "Breed: Golden Retriever", \
+       "autocomplete_section": "Search Suggestions"}' \
+  -u"[your token]:" "https://ac.cnstrc.com/v1/item?autocomplete_key=[your autocomplete key]"
+
+# product
+curl -X PUT -H "Content-Type: application/json" \
+  -d '{"item_name": "Labradoodle", \
+       "new_item_name": "Breed: Labradoodle", \
+       "autocomplete_section":"Products", \
+       "suggested_score": 360, \
+       "keywords": ["poodle","labrador","retriever"], \
+       "url": "http://www.mydogs.com/labradoodle", \
+       "image_url": "https://images.mydogs.com/labradoodle.jpg", \
+       "description": "A crossbreed dog created by crossing the Labrador Retriever and the Poodle", \
+       "metadata": { "animal": "dog" }' \
+  -u"[your token]:" "https://ac.cnstrc.com/v1/item?autocomplete_key=[your autocomplete key]"
 ```
 
 ```javascript
+// search suggestion
 constructorio.modify(
   {
-    item_name: "power drill",
-    new_item_name: "super power drill",
-    autocomplete_section: "Search Suggestions",
-    url: "http://www.mysite.com/power_drill",
+    item_name: "Golden Retriever",
+    new_item_name: "Breed: Golden Retriever",
+    autocomplete_section: "Search Suggestions"
+  },
+  function(error, response) {
+    if (error) {
+      console.log(error);
+    }
+  }
+);
+
+// product
+constructorio.modify(
+  {
+    item_name: "Labradoodle",
+    new_item_name: "Breed: Labradoodle",
+    autocomplete_section: "Products",
+    suggested_score: 360,
+    keywords: ["poodle","labrador","retriever"],
+    url: "http://www.mydogs.com/labradoodle",
+    image_url: "https://images.mydogs.com/labradoodle.jpg",
+    description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+    metadata: { "animal": "dog" }
   },
   function(error, response) {
     if (error) {
@@ -22,40 +59,97 @@ constructorio.modify(
 ```
 
 ```ruby
+# search suggestion
 response = constructorio.modify(
   {
-    item_name: "power drill",
-    new_item_name: "super power drill",
-    autocomplete_section: "Search Suggestions",
-    url: "http://www.mysite.com/power_drill",
+    item_name: "Golden Retriever",
+    new_item_name: "Breed: Golden Retriever",
+    autocomplete_section: "Search Suggestions"
+  }
+);
+
+# product
+response = constructorio.modify(
+  {
+    item_name: "Labradoodle",
+    new_item_name: "Breed: Labradoodle",
+    autocomplete_section: "Products",
+    suggested_score: 360,
+    keywords: ["poodle","labrador","retriever"],
+    url: "http://www.mydogs.com/labradoodle",
+    image_url: "https://images.mydogs.com/labradoodle.jpg",
+    description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+    metadata: { "animal": "dog" }
   }
 );
 ```
 
 ```python
+# search suggestion
 response = constructor_instance.modify(
-    item_name="power drill",
-    new_item_name="better power drill",
-    autocomplete_section="Search Suggestions",
-    url="http://www.mysite.com/power_drill")
+    item_name="Golden Retriever",
+    new_item_name="Golden Retriever",
+    autocomplete_section="Search Suggestions")
+
+# product
+response = constructor_instance.modify(
+    item_name="Labradoodle",
+    new_item_name="Breed: Labradoodle",
+    autocomplete_section="Products",
+    suggested_score=360,
+    keywords=["poodle","labrador","retriever"],
+    url="http://www.mydogs.com/labradoodle",
+    image_url="https://images.mydogs.com/labradoodle.jpg",
+    description="A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+    metadata={ "animal": "dog" })
 ```
 
 ```php
 <?php
-$response = $constructor->modify(
-  "power drill", // item name
-  "super power drill", // new item name (this is required)
-  "Search Suggestions", // autocomplete section name
-  array("suggested_score" => 100) // array of item properties to modify
+// search suggestion
+$response = $constructorio->modify(
+  "Golden Retriever", // item name
+  "Breed: Golden Retriever", // new item name
+  "Search Suggestions" // autocomplete section name
+);
+
+// product
+$response = $constructorio->modify(
+  "Labradoodle", // item name
+  "Breed: Labradoodle", // new item name
+  "Products", // autocomplete section name
+  array(
+    "suggested_score" => 360,
+    "keywords" => array("poodle", "labrador", "retriever"),
+    "url" => "http://www.mydogs.com/labradoodle",
+    "image_url" => "https://images.mydogs.com/labradoodle.jpg",
+    "description" => "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+    "metadata" => array(
+      "animal" => "dog"
+    )
+  );
 );
 ```
 
 ```perl
+# search suggestion
 my $response = $constructorio->modify(
-  item_name => "power drill",
-  new_item_name => "super power drill",
-  autocomplete_section => "Search Suggestions",
-  url => "http://www.mysite.com/power_drill"
+  item_name => "Golden Retriever",
+  new_item_name => "Breed: Golden Retriever",
+  autocomplete_section => "Search Suggestions"
+);
+
+# product
+my $response = $constructorio->modify(
+  item_name => "Labradoodle",
+  new_item_name => "Breed: Labradoodle",
+  autocomplete_section => "Products",
+  suggested_score => 360,
+  keywords => ["poodle","labrador","retriever"],
+  url => "http://www.mydogs.com/labradoodle",
+  image_url => "https://images.mydogs.com/labradoodle.jpg",
+  description => "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+  metadata => { "animal" => "dog" }
 );
 ```
 
@@ -65,22 +159,61 @@ boolean success = constructorio.modify("power drill", "super power drill", "Sear
 // super power drill is an item name
 // Search Suggestions is an autocomplete section name
 // paramMap is a Map<String, Object> you filled beforehand with the other properties you want to modify. Optional.
+
+// search suggestion
+boolean success = constructorio.modify(
+  "Golden Retriever", // item name
+  "Breed: Golden Retriever", // new item name
+  "Search Suggestions" // autocomplete section
+);
+
+// product
+HashMap<String, Object> params = new HashMap<String, Object>();
+params.put("suggested_score", 360);
+params.put("url", "http://www.mydogs.com/labradoodle");
+params.put("image_url", "https://images.mydogs.com/labradoodle.jpg");
+params.put("description", "A crossbreed dog created by crossing the Labrador Retriever and the Poodle");
+
+ConstructorItem item = new ConstructorItem("Breed: Labradoodle", params);
+item.setKeywords("poodle","labrador","retriever");
+
+boolean success = constructorio.modify(
+  "Labradoodle", // old item name
+  item, // item with new name
+  "Products"
+);
 ```
 
 ```csharp
+// search suggestion
 ListItem item = new ListItem(
-  Name: "Drill",
-  URL: "http://constructor.io/drill",
-  AutocompleteSection: "Products"
+  Name: "Golden Retriever", // old item name
+  AutocompleteSection: "Search Suggestion"
 );
-
-item.Name = "Power drill";
-item.Description = "Like a drill, with power."
-
+item.Name = "Breed: Golden Retriever" // new item name
 bool success = ConstructorIOAPI.Modify(item);
-// "Drill" is the original item name as you previously saved it in our system
-// "Power drill" is the new item name
-// "Description" is a new description to add for the item
+
+// product
+ListItem item = new ListItem(
+  Name: "Labradoodle", // old item name
+  AutocompleteSection: "Products",
+  SuggestedScore: 360,
+  Keywords: new string[]
+  {
+    "poodle",
+    "labrador",
+    "retriever"
+  },
+  URL: "http://www.mydogs.com/labradoodle",
+  ImageURL: "https://images.mydogs.com/labradoodle.jpg",
+  Description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+  Metadata: new Dictionary<string, string>
+  {
+      { "animal", "dog" }
+  });
+);
+item.Name = "Breed: Labradoodle" // new item name
+bool success = ConstructorIOAPI.Modify(item);
 ```
 
 > The above command returns a 204 Success response on success.

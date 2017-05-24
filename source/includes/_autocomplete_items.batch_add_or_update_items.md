@@ -2,19 +2,78 @@
 
 ```shell
 curl -X PUT -H "Content-Type: application/json" \
-  -d '{"items": [ {"item_name": "power drill"}, {"item_name": "hammer"} ],
+  -d '{"items": [ {"item_name": "Golden Retriever"}, {"item_name": "Poodle"} ], \
     "autocomplete_section":"Search Suggestions"}' \
+  -u"[your token]:" "https://ac.cnstrc.com/v1/batch_items?force=1&autocomplete_key=[your autocomplete key]"
+
+# products
+curl -X PUT -H "Content-Type: application/json" \
+  -d '{ \
+        "autocomplete_section":"Products", \
+        "items": [ \
+          { \
+            "item_name": "Labradoodle", \
+            "suggested_score": 360, \
+            "keywords": ["poodle","labrador","retriever"], \
+            "url": "http://www.mydogs.com/labradoodle", \
+            "image_url": "https://images.mydogs.com/labradoodle.jpg", \
+            "description": "A crossbreed dog created by crossing the Labrador Retriever and the Poodle", \
+            "metadata": { "animal": "dog" } \
+          }, \
+            "item_name": "Australian Shepherd", \
+            "suggested_score": 130, \
+            "keywords": ["aussie"], \
+            "url": "http://www.mydogs.com/australian_shepherd", \
+            "image_url": "https://images.mydogs.com/australian_shepherd.jpg", \
+            "description": "A medium-sized breed of dog developed on ranches in the Western United States", \
+            "metadata": { "animal": "dog" } \
+          }, \
+        ] \
+      }' \
   -u"[your token]:" "https://ac.cnstrc.com/v1/batch_items?force=1&autocomplete_key=[your autocomplete key]"
 ```
 
 ```javascript
+// search suggestions
 constructorio.add_or_update_batch(
   {
+    autocomplete_section: "Search Suggestions",
     items: [
-      { item_name: "power drill" },
-      { item_name: "hammer" }
-    ],
-    autocomplete_section: "Search Suggestions"
+      { item_name: "Golden Retriever" },
+      { item_name: "Poodle" }
+    ]
+  },
+  function(error, response) {
+    if (error) {
+      console.log(error);
+    }
+  }
+);
+
+// products
+constructorio.add_or_update_batch(
+  {
+    autocomplete_section: "Products",
+    items: [
+      {
+        item_name: "Labradoodle",
+        suggested_score: 360,
+        keywords: ["poodle","labrador","retriever"],
+        url: "http://www.mydogs.com/labradoodle",
+        image_url: "https://images.mydogs.com/labradoodle.jpg",
+        description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+        metadata: { "animal": "dog" }
+      },
+      {
+        item_name: "Australian Shepherd",
+        suggested_score: 130,
+        keywords: ["aussie"],
+        url: "http://www.mydogs.com/australian_shepherd",
+        image_url: "https://images.mydogs.com/australian_shepherd.jpg",
+        description: "A medium-sized breed of dog developed on ranches in the Western United States",
+        metadata: { "animal": "dog" }
+      }
+    ]
   },
   function(error, response) {
     if (error) {
@@ -25,85 +84,227 @@ constructorio.add_or_update_batch(
 ```
 
 ```ruby
+# search suggestions
 response = constructorio.add_or_update_batch(
   {
+    autocomplete_section: "Search Suggestions",
     items: [
-      { item_name: "power drill" },
-      { item_name: "hammer" }
+      { item_name: "Golden Retriever" },
+      { item_name: "Poodle" }
     ],
-    autocomplete_section: "Search Suggestions"
   }
 );
+
+# products
+response = constructorio.add_or_update_batch(
+  {
+    autocomplete_section: "Products",
+    items: [
+      {
+        item_name: "Labradoodle",
+        suggested_score: 360,
+        keywords: ["poodle","labrador","retriever"],
+        url: "http://www.mydogs.com/labradoodle",
+        image_url: "https://images.mydogs.com/labradoodle.jpg",
+        description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+        metadata: { animal: "dog" }
+      },
+      {
+        item_name: "Australian Shepherd",
+        suggested_score: 130,
+        keywords: ["aussie"],
+        url: "http://www.mydogs.com/australian_shepherd",
+        image_url: "https://images.mydogs.com/australian_shepherd.jpg",
+        description: "A medium-sized breed of dog developed on ranches in the Western United States",
+        metadata: { animal: "dog" }
+      }
+    ]
+  }
+)
 ```
 
 ```python
-items = [
-  {"item_name": "power drill"},
-  {"item_name": "hammer"}
-]
-response = constructor_instance.add_or_update_batch(
-  items=items,
-  autocomplete_section="Search Suggestions"
+# search suggestions
+items = response = constructor_instance.add_or_update_batch(
+  autocomplete_section="Search Suggestions",
+  items=[
+    {"item_name": "Golden Retriever"},
+    {"item_name": "Poodle"}
+  ]
 )
 
-toolBox = [
-  {"item_name": "power drill 1000", "url": "/products/power-drill-1000", "id": "42"},
-  {"item_name": "hammer of thor", "url": "/products/hammer-of-thor"}
-]
+# products
 response = constructor_instance.add_or_update_batch(
-    items=toolBox,
-    autocomplete_section="Products"
+    autocomplete_section="Products",
+    items=[
+      {
+        "item_name": "Labradoodle",
+        "suggested_score": 360,
+        "keywords": ["poodle","labrador","retriever"],
+        "url": "http://www.mydogs.com/labradoodle",
+        "image_url": "https://images.mydogs.com/labradoodle.jpg",
+        "description": "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+        "metadata": { "animal": "dog" }
+      },
+      {
+        "item_name": "Australian Shepherd",
+        "suggested_score": 130,
+        "keywords": ["aussie"],
+        "url": "http://www.mydogs.com/australian_shepherd",
+        "image_url": "https://images.mydogs.com/australian_shepherd.jpg",
+        "description": "A medium-sized breed of dog developed on ranches in the Western United States",
+        "metadata": { "animal": "dog" }
+      }
+    ]
 )
 ```
 
 ```php
 <?php
 $response = $constructor->addOrUpdateBatch(
-  array("power drill", "hammer"),
+  array("Golden Retriever", "Poodle"),
   "Search Suggestions"
 );
 
-$toolBox = array(
-   array("item_name" => "power drill", "url" => "/products/power-drill", "image_url" => "/images/power-drill.jpg"),
-   array("item_name" => "hammer", "url" => "/products/hammer", "image_url" => "/images/hammer.jpg")
-);
-$response = $constructor->addOrUpdateBatch($toolBox, "Products");
+// products
+$response = $constructor->addOrUpdateBatch(
+  array(
+     array(
+      "item_name" => "Labradoodle",
+      "suggested_score" => 360,
+      "keywords" => ["poodle","labrador","retriever"],
+      "url" => "http://www.mydogs.com/labradoodle",
+      "image_url" => "https://images.mydogs.com/labradoodle.jpg",
+      "description" => "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+      "metadata" => array( "animal" => "dog" )
+     ),
+     array(
+      "item_name" => "Australian Shepherd",
+      "suggested_score" => 130,
+      "keywords" => ["aussie"],
+      "url" => "http://www.mydogs.com/australian_shepherd",
+      "image_url" => "https://images.mydogs.com/australian_shepherd.jpg",
+      "description" => "A medium-sized breed of dog developed on ranches in the Western United States",
+      "metadata" => array( "animal" => "dog" )
+     )
+  )
+  , "Products");
 ```
 
 ```perl
+# search suggestions
 my $response = $constructorio->add_or_update_batch(
-  items => [ { item_name => "power drill" }, { item_name => "hammer" } ],
-  autocomplete_section => "Search Suggestions"
+  autocomplete_section => "Search Suggestions",
+  items => [
+    { item_name => "Golden Retriever" },
+    { item_name => "Poodle" }
+  ]
 );
+
+# products
+my $response = $constructorio->add_or_update_batch(
+  autocomplete_section: "Products",
+  items: [
+    {
+      item_name => "Labradoodle",
+      suggested_score => 360,
+      keywords => ["poodle","labrador","retriever"],
+      url => "http://www.mydogs.com/labradoodle",
+      image_url => "https://images.mydogs.com/labradoodle.jpg",
+      description => "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+      metadata => { animal => "dog" }
+    },
+    {
+      item_name => "Australian Shepherd",
+      suggested_score => 130,
+      keywords => ["aussie"],
+      url => "http://www.mydogs.com/australian_shepherd",
+      image_url => "https://images.mydogs.com/australian_shepherd.jpg",
+      description => "A medium-sized breed of dog developed on ranches in the Western United States",
+      metadata => { animal => "dog" }
+    }
+  ]
+)
 ```
 
 ```java
-boolean success = constructorio.addOrUpdateBatch("Search Suggestions", "power drill", "hammer");
-// power drill is an item name
-// hammer is an item name
-// Search Suggestions is an autocomplete section name
+// search suggestions
+ConstructorItem[] items = {
+  new ConstructorItem("Golden Retriever"),
+  new ConstructorItem("Poodle")
+}
+boolean success = constructorio.addOrUpdateBatch(items, "Search Suggestions")
+
+// products
+HashMap<String, Object> item1params = new HashMap<String, Object>();
+item1params.put("url", "http://www.mydogs.com/labradoodle");
+item1params.put("image_url", "https://images.mydogs.com/labradoodle.jpg");
+item1paramas.put("description", "A crossbreed dog created by crossing the Labrador Retriever and the Poodle");
+ConstructorItem item1 = new ConstructorItem("Labradoodle", item1params)
+    .setSuggestedScore(360)
+    .setKeywords("poodle","labrador","retriever");
+
+HashMap<String, Object> item2params = new HashMap<String, Object>();
+item2params.put("url", "http://www.mydogs.com/australian_shepherd");
+item2params.put("image_url", "https://images.mydogs.com/australian_shepherd.jpg");
+item2paramas.put("description", "A medium-sized breed of dog developed on ranches in the Western United States");
+ConstructorItem item2 = new ConstructorItem("Australian Shepherd", item2params)
+    .setSuggestedScore(130)
+    .setKeywords("aussie")
+
+ConstructorItem[] items = { item1, item2 };
+boolean success = constructorio.addOrUpdateBatch(items, "Products")
 ```
 
 ```csharp
+// search suggestions
+List<ListItem> itemList = new List<ListItem>();
+itemList.Add(new ListItem(
+  Name: "Golden Retriever"
+)
+itemList.Add(new ListItem(
+  Name: "Poodle"
+)
+bool success = ConstructorIOAPI.AddOrUpdateBatch(itemList, "Search Suggestions");
+
+// products
 List<ListItem> itemList = new List<ListItem>();
 
 itemList.Add(new ListItem(
-  Name: "Power drill",
-  Description: "Like a drill, with power.",
-  URL: "http://constructor.io/power-drill",
-  ImageURL: "http://constructor.io/power-drill.jpg"
+  Name: "Labradoodle",
+  SuggestedScore: 360,
+  Keywords: new string[]
+  {
+    "poodle",
+    "labrador",
+    "retriever"
+  },
+  URL: "http://www.mydogs.com/labradoodle",
+  ImageUrl => "https://images.mydogs.com/labradoodle.jpg",
+  Description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+  Metadata: new Dictionary<string, string>
+  {
+    { "animal", "dog" }
+  }
 ));
 
 itemList.Add(new ListItem(
-  Name: "Hammer",
-  Description: "When everything looks like a nail.",
-  URL: "http://constructor.io/hammer"
+  Name: "Australian Shepherd",
+  SuggestedScore: 130,
+  Keywords: new string[]
+  {
+    "aussie,
+  },
+  URL: "http://www.mydogs.com/australian_shepherd",
+  ImageUrl => "https://images.mydogs.com/australian_shepherd.jpg",
+  Description: "A medium-sized breed of dog developed on ranches in the Western United States",
+  Metadata: new Dictionary<string, string>
+  {
+    { "animal", "dog" }
+  }
 ));
 
 bool success = ConstructorIOAPI.AddOrUpdateBatch(itemList, "Products");
-
-// itemList is a List<ListItem> composed of key / value pairs as specified in parameters below. If "Power drill" or "Hammer" already exist, their metadata will be updated as above. Otherwise new items will be created with these values.
-// "Products" is the  autocomplete section to which you'd like to add the items contained in itemList
 ```
 
 > The above command(s) return a 204 Success response on success.

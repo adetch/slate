@@ -1,13 +1,37 @@
 ## Remove an Item
 
 ```shell
+# remove by name
+curl -X DELETE -H "Content-Type: application/json" \
+  -d '{"item_name": "Golden Retriever", \
+       "autocomplete_section": "Search Suggestions"}' \
+  -u "[your token]:" "https://ac.cnstrc.com/v1/item?autocomplete_key=[your autocomplete key]"
+
+# remove by ID
 curl -X DELETE -H "Content-Type: application/json" -d '{"item_name":"power drill","autocomplete_section":"products_autocomplete"}' \
   -u "[your token]:" "https://ac.cnstrc.com/v1/item?autocomplete_key=[your autocomplete key]"
 ```
 
 ```javascript
+// remove by name
 constructorio.remove(
-  { item_name: "power drill", autocomplete_section: "Search Suggestions" },
+  {
+    item_name: "Golden Retriever",
+    autocomplete_section: "Search Suggestions" 
+  },
+  function(error, response) {
+    if (error) {
+      console.log(error);
+    }
+  }
+);
+
+// remove by ID
+constructorio.remove(
+  {
+    id: "D26",
+    autocomplete_section: "Search Suggestions" 
+  },
   function(error, response) {
     if (error) {
       console.log(error);
@@ -17,47 +41,76 @@ constructorio.remove(
 ```
 
 ```ruby
+# remove by name
 response = constructorio.remove(
-  { item_name: "power drill", autocomplete_section: "Search Suggestions" }
+  {
+    item_name: "Golden Retriever",
+    autocomplete_section: "Search Suggestions"
+  }
+);
+
+# remove by ID
+response = constructorio.remove(
+  {
+    id: "D26",
+    autocomplete_section: "Search Suggestions"
+  }
 );
 ```
 
 ```python
+# remove by name
 response = constructor_instance.remove(
-  item_name="power drill", 
+  item_name="Golden Retriever",
   autocomplete_section="Search Suggestions")
 ```
 
 ```php
 <?php
+// remove by name
 $response = $constructor->remove(
-  "power drill", // item name
+  "Golden Retriever", // item name
   "Search Suggestions" // autocomplete section name
 );
 ```
 
 ```perl
+# remove by name
 my $response = $constructorio->remove(
-  item_name => "power drill",
+  item_name => "Golden Retriever",
+  autocomplete_section => "Search Suggestions"
+);
+
+# remove by ID
+my $response = $constructorio->remove(
+  id => "D26",
   autocomplete_section => "Search Suggestions"
 );
 ```
 
 ```java
-boolean success = constructorio.remove("power drill", "Search Suggestions");
-// power drill is an item name
-// Search Suggestions is an autocomplete section name
+// remove by name
+boolean success = constructorio.remove(
+  "Golden Retriever", // item name
+  "Search Suggestions" // autocomplete section
+);
 ```
 
 ```csharp
-ListItem item = new ListItem(
-  Name: "Power drill",
-  AutocompleteSection: "Products"
+// remove by name
+ListItem itemByName = new ListItem(
+  Name: "Golden Retriever",
+  AutocompleteSection: "Search Suggestions"
 );
 
-bool success = ConstructorIOAPI.Remove(item);
+bool success = ConstructorIOAPI.Remove(itemByName);
 
-// "item" is a ListItem with the Name or ID for the item you'd like to remove
+ListItem itemByID = new ListItem(
+  ID: "D26",
+  AutocompleteSection: "Search Suggestions"
+);
+
+bool success = ConstructorIOAPI.Remove(itemByID);
 ```
 
 > The above command returns a 204 Success response on success.

@@ -1,15 +1,51 @@
 ## Add an Item
 
 ```shell
+# search suggestion
 curl -X POST -H "Content-Type: application/json" \
-  -d '{"item_name":"power drill","keywords":["battery-powered","drills","drywall"],
-  "suggested_score":36,"url":"http://www.mysite.com/power_drill","autocomplete_section":"Search Suggestions"}' \
+  -d '{"item_name": "Golden Retriever", \
+       "autocomplete_section": "Search Suggestions"}' \
+  -u"[your token]:" "https://ac.cnstrc.com/v1/item?autocomplete_key=[your autocomplete key]"
+
+# product
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"item_name": "Labradoodle", \
+       "autocomplete_section":"Products", \
+       "suggested_score": 360, \
+       "keywords": ["poodle","labrador","retriever"], \
+       "url": "http://www.mydogs.com/labradoodle", \
+       "image_url": "https://images.mydogs.com/labradoodle.jpg", \
+       "description": "A crossbreed dog created by crossing the Labrador Retriever and the Poodle", \
+       "metadata": { "animal": "dog" }' \
   -u"[your token]:" "https://ac.cnstrc.com/v1/item?autocomplete_key=[your autocomplete key]"
 ```
 
 ```javascript
+// search suggestion
 constructorio.add(
-  { item_name: "power drill", autocomplete_section: "Search Suggestions" },
+  {
+    item_name: "Golden Retriever",
+    autocomplete_section: "Search Suggestions"
+  },
+  function(error, response) {
+    if (error) {
+      console.log(error);
+    }
+  }
+);
+
+// product
+constructorio.add(
+  {
+    item_name: "Labradoodle",
+    autocomplete_section: "Products",
+    suggested_score: 360,
+    keywords: ["poodle","labrador","retriever"],
+    url: "http://www.mydogs.com/labradoodle",
+    image_url: "https://images.mydogs.com/labradoodle.jpg",
+    description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+    metadata: { "animal": "dog" }
+  },
   function(error, response) {
     if (error) {
       console.log(error);
@@ -19,55 +55,143 @@ constructorio.add(
 ```
 
 ```ruby
+# search suggestion
 response = constructorio.add(
-  { item_name: "power drill", autocomplete_section: "Search Suggestions" }
+  {
+    item_name: "Golden Retriever",
+    autocomplete_section: "Search Suggestions"
+  }
+);
+
+# product
+response = constructorio.add(
+  {
+    item_name: "Labradoodle",
+    autocomplete_section: "Products",
+    suggested_score: 360,
+    keywords: ["poodle","labrador","retriever"],
+    url: "http://www.mydogs.com/labradoodle",
+    image_url: "https://images.mydogs.com/labradoodle.jpg",
+    description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+    metadata: { "animal": "dog" }
+  }
 );
 ```
 
 ```python
+# search suggestion
 response = constructor_instance.add(
-    item_name="power drill",
+    item_name="Golden Retriever",
     autocomplete_section="Search Suggestions")
+
+# product
+response = constructor_instance.add(
+    item_name="Labradoodle",
+    autocomplete_section="Products",
+    suggested_score=360,
+    keywords=["poodle","labrador","retriever"],
+    url="http://www.mydogs.com/labradoodle",
+    image_url="https://images.mydogs.com/labradoodle.jpg",
+    description="A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+    metadata={ "animal": "dog" })
 ```
 
 ```php
 <?php
-$response = $constructor->add(
-  "power drill", // item name
+// search suggestion
+$response = $constructorio->add(
+  "Golden Retriever", // item name
   "Search Suggestions" // autocomplete section name
+);
+
+// product
+$response = $constructorio->add(
+  "Labradoodle", // item name
+  "Products", // autocomplete section name
+  array(
+    "suggested_score" => 360,
+    "keywords" => array("poodle", "labrador", "retriever"),
+    "url" => "http://www.mydogs.com/labradoodle",
+    "image_url" => "https://images.mydogs.com/labradoodle.jpg",
+    "description" => "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+    "metadata" => array(
+      "animal" => "dog"
+    )
+  );
 );
 ```
 
 ```perl
+# search suggestion
 my $response = $constructorio->add(
-  item_name => "power drill",
+  item_name => "Golden Retriever",
   autocomplete_section => "Search Suggestions"
+);
+
+# product
+my $response = $constructorio->add(
+  item_name => "Labradoodle",
+  autocomplete_section => "Products",
+  suggested_score => 360,
+  keywords => ["poodle","labrador","retriever"],
+  url => "http://www.mydogs.com/labradoodle",
+  image_url => "https://images.mydogs.com/labradoodle.jpg",
+  description => "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+  metadata => { "animal" => "dog" }
 );
 ```
 
 ```java
-boolean success = constructorio.add("power drill", "Search Suggestions");
-// power drill is an item name
-// Search Suggestions is an autocomplete section name
+// search suggestion
+boolean success = constructorio.add("Golden Retriever", "Search Suggestions");
+// "Golden Retriever" is an item name
+// "Search Suggestions" is an autocomplete section name
+
+// product
+HashMap<String, Object> params = new HashMap<String, Object>();
+params.put("suggested_score", 360);
+params.put("url", "http://www.mydogs.com/labradoodle");
+params.put("image_url", "https://images.mydogs.com/labradoodle.jpg");
+params.put("description", "A crossbreed dog created by crossing the Labrador Retriever and the Poodle");
+
+ConstructorItem item = new ConstructorItem("Labradoodle", params);
+item.setKeywords("poodle","labrador","retriever");
+
+boolean success = constructorio.add(
+  item,
+  "Products"
+);
+
 ```
 
 ```csharp
+// search suggestion
 ListItem item = new ListItem(
-  Name: "Power drill",
-  Description: "Like a drill, with power.",
-  URL: "http://constructor.io/power-drill",
-  ImageURL: "http://constructor.io/power-drill.jpg",
-  AutocompleteSection: "Products",
-  Metadata: new Dictionary<string, string>
-  {
-      { "Voltage", "12V" },
-      { "Color", "Green" }
-  });
+  Name: "Golden Retriever",
+  AutocompleteSection: "Search Suggestion"
 );
-
 bool success = ConstructorIOAPI.Add(item);
 
-// "item" is a ListItem containing key / value pairs as specified in parameters below.
+// product
+ListItem item = new ListItem(
+  Name: "Labradoodle",
+  AutocompleteSection: "Products",
+  SuggestedScore: 360,
+  Keywords: new string[]
+  {
+    "poodle",
+    "labrador",
+    "retriever"
+  },
+  URL: "http://www.mydogs.com/labradoodle",
+  ImageURL: "https://images.mydogs.com/labradoodle.jpg",
+  Description: "A crossbreed dog created by crossing the Labrador Retriever and the Poodle",
+  Metadata: new Dictionary<string, string>
+  {
+      { "animal", "dog" }
+  });
+);
+bool success = ConstructorIOAPI.Add(item);
 ```
 
 > The above command returns a 204 Success response on success.

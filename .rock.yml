@@ -3,5 +3,6 @@ runtime: ruby21
 env:
   PATH: "${ROCK_PATH}/bin:${PATH}"
 
+# you may have to `rvm use system` first
 build: |
   bundle exec middleman build --clean
