@@ -31,6 +31,7 @@ includes:
   - responses
   - errors
   - javascript_client
+  - search
 
 search: true
 ---

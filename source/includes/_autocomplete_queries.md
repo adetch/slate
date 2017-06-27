@@ -4,6 +4,7 @@
 curl -X GET -H "Content-Type: application/json" \
 "https://ac.cnstrc.com/autocomplete/[query]?autocomplete_key=[your autocomplete key]"
 
+# for the demo list of dog breeds on our homepage
 curl -X GET -H "Content-Type: application/json" \
 "https://ac.cnstrc.com/autocomplete/australian?autocomplete_key=pAFl6rReRSI0uXckcxZS&num_results_Search%20Suggestions=3"
 ```
@@ -59,7 +60,7 @@ When implementing our autocomplete on a website, we recommend most customers use
 
 `GET  https://ac.cnstrc.com/autocomplete/[query]?autocomplete_key=[your autocomplete key]`
 
-### JSON Parameters
+### Parameters
 
 Parameter | Required? | Description
 --------- | ----------- | ----------
