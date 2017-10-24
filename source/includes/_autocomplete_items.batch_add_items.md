@@ -314,6 +314,8 @@ bool success = ConstructorIOAPI.AddBatch(itemList, "Products");
 
 To add multiple items to your autocomplete index as a batch, use the `POST /batch_items` call. The `items` parameter is required and is a list of items with the same attributes as defined in the [Add an Item](#add-an-item) resource.  Because your autocomplete can have multiple sections, like categories, search suggestions, and direct links to products, you must specify which section you are adding an item to. You can do this with the `autocomplete_section` parameter.
 
+There is a limit of 1,000 items per batch request.
+
 ### HTTP Request
 
 `POST https://ac.cnstrc.com/v1/batch_items?autocomplete_key=[your autocomplete key]`

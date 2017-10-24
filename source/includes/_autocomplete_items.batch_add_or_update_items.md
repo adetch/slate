@@ -317,6 +317,8 @@ To add or update a batch of items to your autocomplete index, use the `PUT /batc
 
 We determine whether items already exist based on the `item_name` and `autocomplete_section` set for each item. However, if the optional `id` parameter is set for the items, we determine whether items already exist using this parameter.
 
+There is a limit of 1,000 items per batch request.
+
 ### HTTP Request
 
 `PUT https://ac.cnstrc.com/v1/batch_items?force=1&autocomplete_key=[your autocomplete key]`

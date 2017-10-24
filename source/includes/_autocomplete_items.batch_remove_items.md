@@ -80,6 +80,8 @@ To remove multiple items from your autocomplete index as a batch, use the `DELET
 
 The `items` parameter is required and is a list of items with the same attributes as defined in the [Remove an Item](#remove-an-item) resource. If your autocomplete has multiple sections (i.e. products, categories, and search suggestions), you must specify the name of the autocomplete section from which you're removing the items.
 
+There is a limit of 1,000 items per batch request.
+
 ### HTTP Request
 
 `DELETE https://ac.cnstrc.com/v1/batch_items?autocomplete_key=[your autocomplete key]`
