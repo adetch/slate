@@ -2,7 +2,7 @@
 
 ```shell
 curl -X DELETE -H "Content-Type: application/json" \
-  -d {"items": [ {"item_name": "Labradoodle"}, {"id": "D26"} ], \
+  -d '{"items": [ {"item_name": "Labradoodle"}, {"id": "D26"} ], \
     "autocomplete_section":"Products"}' \
   -u "[your token]:" "https://ac.cnstrc.com/v1/batch_items?autocomplete_key=[your autocomplete key]"
 ```
