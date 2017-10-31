@@ -30,7 +30,7 @@ response = constructorio.remove_batch(
   {
     autocomplete_section: "Products",
     items: [
-      { item_name: "Products" },
+      { item_name: "Labradoodle" },
       { id: "D26" }
     ],
   }
@@ -49,7 +49,11 @@ response = constructor_instance.remove_batch(
 
 ```php
 <?php
-// This method is not currently supported in our php client.
+$items = array(
+  array("item_name" => "Labradoodle"),
+  array("id" => "D26")
+);
+$response = $constructor->removeBatch($items, "Products");
 ```
 
 ```perl
