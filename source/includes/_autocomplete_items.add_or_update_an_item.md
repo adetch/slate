@@ -5,7 +5,7 @@
 curl -X PUT -H "Content-Type: application/json" \
   -d '{"item_name": "Golden Retriever", \
        "autocomplete_section": "Search Suggestions"}' \
-  -u"[your token]:" "https://ac.cnstrc.com/v1/item?autocomplete_key=[your autocomplete key]"
+  -u"[your token]:" "https://ac.cnstrc.com/v1/item?force=1&autocomplete_key=[your autocomplete key]"
 
 # product
 curl -X PUT -H "Content-Type: application/json" \
